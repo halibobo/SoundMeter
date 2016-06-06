@@ -26,7 +26,7 @@ public class SoundDiscView extends ImageView {
     private Matrix mMatrix = new Matrix();
     private Bitmap indicatorBitmap;
     private Paint paint = new Paint();
-    static final long  ANIMATION_INTERVAL = 100;
+    static final long  ANIMATION_INTERVAL = 20;
 
 
     public SoundDiscView(Context context) {
@@ -55,6 +55,10 @@ public class SoundDiscView extends ImageView {
         paint.setColor(Color.WHITE);
     }
 
+    public void refresh() {
+        postInvalidateDelayed(ANIMATION_INTERVAL);
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -69,7 +73,6 @@ public class SoundDiscView extends ImageView {
         float currentAngle = getAngle(World.dbCount);
         mMatrix.setRotate(currentAngle, newWidth / 2, newHeight * 215 / 460);   //片相对位置
         canvas.drawBitmap(indicatorBitmap, mMatrix, paint);
-        postInvalidateDelayed(ANIMATION_INTERVAL);
         canvas.drawText((int)World.dbCount+" DB", newWidth/2,newHeight*36/46, paint); //图片相对位置
     }
 

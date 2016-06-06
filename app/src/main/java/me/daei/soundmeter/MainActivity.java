@@ -7,12 +7,15 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import me.daei.soundmeter.widget.SoundDiscView;
+
 public class MainActivity extends AppCompatActivity {
 
     private boolean bListener = true;
     private boolean isThreadRun = true;
     private Thread thread;
     float volume = 10000;
+    private SoundDiscView soundDiscView;
 
     private MyMediaRecorder mRecorder ;
 
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecorder = new MyMediaRecorder();
+        soundDiscView = (SoundDiscView) findViewById(R.id.soundDiscView);
     }
 
     private void startListenAudio() {
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                             volume = mRecorder.getMaxAmplitude();  //获取声压值
                             if(volume > 0 && volume < 1000000) {
                                 World.setDbCount(20 * (float)(Math.log10(volume)));  //将声压值转为分贝值
+                                soundDiscView.refresh();
                             }
                         }
                         Thread.sleep(100);
