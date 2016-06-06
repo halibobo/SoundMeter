@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                             volume = mRecorder.getMaxAmplitude();  //获取声压值
                             if(volume > 0 && volume < 1000000) {
                                 World.setDbCount(20 * (float)(Math.log10(volume)));  //将声压值转为分贝值
-                                soundDiscView.refresh();
+                                soundDiscView.refresh(); //
                             }
                         }
                         Thread.sleep(100);

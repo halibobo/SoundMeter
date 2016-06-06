@@ -56,7 +56,7 @@ public class SoundDiscView extends ImageView {
     }
 
     public void refresh() {
-        postInvalidateDelayed(ANIMATION_INTERVAL);
+        postInvalidateDelayed(ANIMATION_INTERVAL); //子线程刷新view
     }
 
     @Override
