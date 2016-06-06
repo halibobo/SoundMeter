@@ -32,22 +32,24 @@ public class MyMediaRecorder {
 		this.myRecAudioFile = myRecAudioFile;
 	}
 
+	/**
+	 * 录音
+	 * @return 是否成功开始录音
+     */
 	public boolean startRecorder(){
-//		stopRecording();
 		if (myRecAudioFile == null) {
 			return false;
 		}
         try {
 			mMediaRecorder = new MediaRecorder();
+
 			mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 			mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 			mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-
 			mMediaRecorder.setOutputFile(myRecAudioFile.getAbsolutePath());
+
 			mMediaRecorder.prepare();
 			mMediaRecorder.start();
-			Log.v("tag", "mMediaRecorder start！");
 			isRecording = true;
 			return true;
         } catch(IOException exception) {

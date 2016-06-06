@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean bListener = true;
     private boolean isThreadRun = true;
     private Thread thread;
+    float volume = 10000;
 
     private MyMediaRecorder mRecorder ;
 
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         mRecorder = new MyMediaRecorder();
     }
 
-    float volume = 10000;
     private void startListenAudio() {
         thread = new Thread(new Runnable() {
             @Override
@@ -30,12 +30,11 @@ public class MainActivity extends AppCompatActivity {
                 while (isThreadRun) {
                     try {
                         if(bListener) {
-                            volume = mRecorder.getMaxAmplitude();
+                            volume = mRecorder.getMaxAmplitude();  //获取声压值
                             if(volume > 0 && volume < 1000000) {
-                                World.setDbCount(20 * (float)(Math.log10(volume)));
+                                World.setDbCount(20 * (float)(Math.log10(volume)));  //将声压值转为分贝值
                             }
                         }
-                        Log.v("activity", "db = " + World.dbCount);
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         bListener = false;
-//        mRecorder.stopRecording();
         mRecorder.delete();
     }
 
