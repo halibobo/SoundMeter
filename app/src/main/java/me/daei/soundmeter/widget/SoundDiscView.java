@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 
 import me.daei.soundmeter.R;
+import me.daei.soundmeter.ScreenUtil;
 import me.daei.soundmeter.World;
 
 /**
@@ -48,7 +49,7 @@ public class SoundDiscView extends ImageView {
         indicatorBitmap = Bitmap.createBitmap(myBitmap, 0, 0, bitmapWidth, bitmapHeight, mMatrix,true);  //获取同等和背景宽高的指针图的bitmap
 
         paint = new Paint();
-        paint.setTextSize(55);
+        paint.setTextSize(22* ScreenUtil.getDensity(getContext()));
         paint.setAntiAlias(true);
         paint.setTextAlign(Paint.Align.CENTER);  //抗锯齿
         paint.setColor(Color.WHITE);
