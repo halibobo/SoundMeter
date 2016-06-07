@@ -50,8 +50,8 @@ public class SoundDiscView extends ImageView {
 
         paint = new Paint();
         paint.setTextSize(22* ScreenUtil.getDensity(getContext()));
-        paint.setAntiAlias(true);
-        paint.setTextAlign(Paint.Align.CENTER);  //抗锯齿
+        paint.setAntiAlias(true);  //抗锯齿
+        paint.setTextAlign(Paint.Align.CENTER);
         paint.setColor(Color.WHITE);
     }
 
@@ -70,8 +70,7 @@ public class SoundDiscView extends ImageView {
         if (indicatorBitmap == null) {
             init();
         }
-        float currentAngle = getAngle(World.dbCount);
-        mMatrix.setRotate(currentAngle, newWidth / 2, newHeight * 215 / 460);   //片相对位置
+        mMatrix.setRotate(getAngle(World.dbCount), newWidth / 2, newHeight * 215 / 460);   //片相对位置
         canvas.drawBitmap(indicatorBitmap, mMatrix, paint);
         canvas.drawText((int)World.dbCount+" DB", newWidth/2,newHeight*36/46, paint); //图片相对位置
     }
