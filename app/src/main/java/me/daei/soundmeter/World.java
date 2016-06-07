@@ -8,7 +8,7 @@ public class World {
 	public static float dbCount = 40;
 
 	private static float lastDbCount = dbCount;
-	private static float min = 5;
+	private static float min = 0.5f;
 	private static float value = 0;
 	public static void setDbCount(float dbValue) {
 		if (dbValue > lastDbCount) {
