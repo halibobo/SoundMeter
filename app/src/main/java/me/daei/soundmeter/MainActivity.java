@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
     }
 
+    /**
+     * 开始记录
+     * @param fFile
+     */
     public void startRecord(File fFile){
         try{
             mRecorder.setMyRecAudioFile(fFile);
@@ -79,11 +83,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 停止记录
+     */
     @Override
     protected void onStop() {
         super.onStop();
         bListener = false;
-        mRecorder.delete();
+        mRecorder.delete(); //停止记录并删除录音文件
     }
 
     @Override
