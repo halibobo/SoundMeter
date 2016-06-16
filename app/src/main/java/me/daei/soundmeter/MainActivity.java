@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                             volume = mRecorder.getMaxAmplitude();  //获取声压值
                             if(volume > 0 && volume < 1000000) {
                                 World.setDbCount(20 * (float)(Math.log10(volume)));  //将声压值转为分贝值
-                                soundDiscView.refresh(); //
+                                soundDiscView.refresh(); //刷新View [注]子线程
                             }
                         }
                         Thread.sleep(100);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "启动录音失败", Toast.LENGTH_SHORT).show();
             }
         }catch(Exception e){
-            Toast.makeText(this, "录音机已被占用", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "录音机已被占用或录音权限被禁止", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

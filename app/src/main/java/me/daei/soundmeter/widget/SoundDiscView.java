@@ -28,7 +28,6 @@ public class SoundDiscView extends ImageView {
     private Paint paint = new Paint();
     static final long  ANIMATION_INTERVAL = 20;
 
-
     public SoundDiscView(Context context) {
         super(context);
     }
