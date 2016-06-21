@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
      * 停止记录
      */
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         bListener = false;
         mRecorder.delete(); //停止记录并删除录音文件
     }
