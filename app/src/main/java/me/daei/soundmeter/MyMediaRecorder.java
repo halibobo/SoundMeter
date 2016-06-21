@@ -3,7 +3,6 @@ package me.daei.soundmeter;
 import java.io.File;
 import java.io.IOException;
 import android.media.MediaRecorder;
-import android.util.Log;
 
 public class MyMediaRecorder {
 	
