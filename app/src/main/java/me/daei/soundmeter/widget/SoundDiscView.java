@@ -8,8 +8,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
 import android.widget.ImageView;
 
 import me.daei.soundmeter.R;

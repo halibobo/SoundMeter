@@ -1,7 +1,5 @@
 package me.daei.soundmeter;
 
-import android.os.Environment;
-import android.widget.TextView;
 
 
 public class World {
