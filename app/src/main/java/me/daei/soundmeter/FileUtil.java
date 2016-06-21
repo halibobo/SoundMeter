@@ -37,6 +37,9 @@ public class FileUtil {
         }
     }
 
+    private FileUtil() {
+    }
+
     /**
      * 判断是否存在存储空间	 *
      *

@@ -9,6 +9,9 @@ import android.view.WindowManager;
  * Created by su on 2016/6/6.
  */
 public class ScreenUtil {
+    private ScreenUtil() {
+    }
+
     /**
      * 屏幕密度
      * @param context
