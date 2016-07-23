@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecorder = new MyMediaRecorder();
-        soundDiscView = (SoundDiscView) findViewById(R.id.soundDiscView);
     }
 
     private void startListenAudio() {
@@ -73,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        soundDiscView = (SoundDiscView) findViewById(R.id.soundDiscView);
         bListener = true;
         File file = FileUtil.createFile("temp.amr");
         if (file != null) {
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         bListener = false;
         mRecorder.delete(); //停止记录并删除录音文件
+        thread = null;
     }
 
     @Override
