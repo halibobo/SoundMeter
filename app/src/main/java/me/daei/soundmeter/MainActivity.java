@@ -1,5 +1,7 @@
 package me.daei.soundmeter;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,13 +13,11 @@ import me.daei.soundmeter.widget.SoundDiscView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean bListener = true;
-    private boolean isThreadRun = true;
-    private Thread thread;
     float volume = 10000;
     private SoundDiscView soundDiscView;
-
-    private MyMediaRecorder mRecorder ;
+    private MyMediaRecorder mRecorder;
+    private static final int msgWhat = 0x1001;
+    private static final int refreshTime = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,28 +26,25 @@ public class MainActivity extends AppCompatActivity {
         mRecorder = new MyMediaRecorder();
     }
 
-    private void startListenAudio() {
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isThreadRun) {
-                    try {
-                        if(bListener) {
-                            volume = mRecorder.getMaxAmplitude();  //获取声压值
-                            if(volume > 0 && volume < 1000000) {
-                                World.setDbCount(20 * (float)(Math.log10(volume)));  //将声压值转为分贝值
-                                soundDiscView.refresh(); //刷新View [注]子线程
-                            }
-                        }
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        bListener = false;
-                    }
-                }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (this.hasMessages(msgWhat)) {
+                return;
             }
-        });
-        thread.start();
+            volume = mRecorder.getMaxAmplitude();  //获取声压值
+            if(volume > 0 && volume < 1000000) {
+                World.setDbCount(20 * (float)(Math.log10(volume)));  //将声压值转为分贝值
+                soundDiscView.refresh();
+            }
+            handler.sendEmptyMessageDelayed(msgWhat, refreshTime);
+        }
+    };
+
+    private void startListenAudio() {
+        handler.sendEmptyMessageDelayed(msgWhat, refreshTime);
     }
 
     /**
@@ -73,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         soundDiscView = (SoundDiscView) findViewById(R.id.soundDiscView);
-        bListener = true;
         File file = FileUtil.createFile("temp.amr");
         if (file != null) {
             Log.v("file", "file =" + file.getAbsolutePath());
@@ -89,17 +85,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        bListener = false;
         mRecorder.delete(); //停止记录并删除录音文件
-        thread = null;
+        handler.removeMessages(msgWhat);
     }
 
     @Override
     protected void onDestroy() {
-        if (thread != null) {
-            isThreadRun = false;
-            thread = null;
-        }
+        handler.removeMessages(msgWhat);
         mRecorder.delete();
         super.onDestroy();
     }
